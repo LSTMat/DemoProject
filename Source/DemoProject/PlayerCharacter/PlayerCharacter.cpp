@@ -14,7 +14,7 @@ APlayerCharacter::APlayerCharacter()
 // Called when the game starts or when spawned
 void APlayerCharacter::BeginPlay()
 {
-	Super::BeginPlay();
+	Super::BeginPlay(); 
 	
 }
 
