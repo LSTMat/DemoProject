@@ -34,32 +34,34 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	//Setting up all the movement and main key for the character (PC/Joypad)
-	PlayerInputComponent->BindAxis(TEXT("MoveForeward"), this, &AShooterCharacter::MoveForeward);
-	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &APawn::AddControllerPitchInput);
-	PlayerInputComponent->BindAxis(TEXT("MoveRight"), this, &AShooterCharacter::MoveRight);
-	PlayerInputComponent->BindAxis(TEXT("LookRight"), this, &APawn::AddControllerYawInput);
-	PlayerInputComponent->BindAxis(TEXT("LookUpRate"), this, &AShooterCharacter::LookUpRate);
-	PlayerInputComponent->BindAxis(TEXT("LookRightRate"), this, &AShooterCharacter::LookRightRate);
-	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ACharacter::Jump);
+	PlayerInputComponent->BindAxis(TEXT("MoveForeward"), this, &APlayerCharacter::MoveForeward);
+	PlayerInputComponent->BindAxis(TEXT("MoveRight"), this, &APlayerCharacter::MoveRight);
 
+	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &APawn::AddControllerPitchInput);
+	PlayerInputComponent->BindAxis(TEXT("LookRight"), this, &APawn::AddControllerYawInput);
+
+	PlayerInputComponent->BindAxis(TEXT("LookRightRate"), this, &APlayerCharacter::LookRightRate);
+	PlayerInputComponent->BindAxis(TEXT("LookUpRate"), this, &APlayerCharacter::LookUpRate);
+
+	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ACharacter::Jump);
 }
 
-void AShooterCharacter::MoveForeward(float AxisValue)
+void APlayerCharacter::MoveForeward(float AxisValue)
 {
 	AddMovementInput(GetActorForwardVector() * AxisValue);
 }
 
-void AShooterCharacter::MoveRight(float AxisValue)
+void APlayerCharacter::MoveRight(float AxisValue)
 {
 	AddMovementInput(GetActorRightVector() * AxisValue);
 }
 
-void AShooterCharacter::LookUpRate(float AxisValue)
+void APlayerCharacter::LookUpRate(float AxisValue)
 {
 	AddControllerPitchInput(AxisValue * RotationRate * GetWorld()->GetDeltaSeconds());
 }
 
-void AShooterCharacter::LookRightRate(float AxisValue)
+void APlayerCharacter::LookRightRate(float AxisValue)
 {
 	AddControllerYawInput(AxisValue * RotationRate * GetWorld()->GetDeltaSeconds());
 }
