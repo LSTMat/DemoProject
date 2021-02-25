@@ -37,7 +37,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	//Setting up all the movement and main key for the character (PC/Joypad)
 	PlayerInputComponent->BindAxis(TEXT("MoveForeward"), this, &APlayerCharacter::MoveForeward);
 	PlayerInputComponent->BindAxis(TEXT("MoveRight"), this, &APlayerCharacter::MoveRight);
-
+	
 	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis(TEXT("LookRight"), this, &APawn::AddControllerYawInput);
 
