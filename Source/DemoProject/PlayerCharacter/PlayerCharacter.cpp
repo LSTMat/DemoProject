@@ -2,6 +2,7 @@
 
 
 #include "PlayerCharacter.h"
+#include "Components/CapsuleComponent.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -48,12 +49,20 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 void APlayerCharacter::MoveForeward(float AxisValue)
 {
-	AddMovementInput(GetActorForwardVector() * AxisValue);
+	if (AxisValue != 0.0f){
+		UE_LOG(LogTemp, Warning, TEXT("Foreward"));
+		UE_LOG(LogTemp, Warning, TEXT("%f"), AxisValue);
+		AddMovementInput(GetActorForwardVector() * AxisValue);
+	}
 }
 
 void APlayerCharacter::MoveRight(float AxisValue)
 {
-	AddMovementInput(GetActorRightVector() * AxisValue);
+	if (AxisValue != 0.0f){
+		UE_LOG(LogTemp, Warning, TEXT("Right"));
+		UE_LOG(LogTemp, Warning, TEXT("%f"), AxisValue);
+		AddMovementInput(GetActorRightVector() * AxisValue);
+	}
 }
 
 void APlayerCharacter::LookUpRate(float AxisValue)
