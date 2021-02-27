@@ -19,6 +19,7 @@ void APlayerCharacter::BeginPlay()
 
 	//Setting Health to standard value
 	Health = MaxHealth;
+	PlayerCharacterMovement = GetCharacterMovement();
 	
 }
 
@@ -45,24 +46,40 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis(TEXT("LookUpRate"), this, &APlayerCharacter::LookUpRate);
 
 	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ACharacter::Jump);
+
+	PlayerInputComponent->BindAction(TEXT("IncreaseSpeed"), IE_Pressed, this, &APlayerCharacter::IncreaseMovementSpeed);
+	PlayerInputComponent->BindAction(TEXT("IncreaseSpeed"), IE_Released, this, &APlayerCharacter::NormalizeMovementSpeed);
+	PlayerInputComponent->BindAction(TEXT("DecreaseSpeed"), IE_Pressed, this, &APlayerCharacter::DecreaseMovementSpeed);
+	PlayerInputComponent->BindAction(TEXT("DecreaseSpeed"), IE_Released, this, &APlayerCharacter::NormalizeMovementSpeed);
 }
 
 void APlayerCharacter::MoveForeward(float AxisValue)
 {
 	if (AxisValue != 0.0f){
-		UE_LOG(LogTemp, Warning, TEXT("Foreward"));
-		UE_LOG(LogTemp, Warning, TEXT("%f"), AxisValue);
-		AddMovementInput(GetActorForwardVector() * AxisValue);
+		AddMovementInput(GetActorForwardVector() * AxisValue * 1000);
 	}
 }
 
 void APlayerCharacter::MoveRight(float AxisValue)
 {
 	if (AxisValue != 0.0f){
-		UE_LOG(LogTemp, Warning, TEXT("Right"));
-		UE_LOG(LogTemp, Warning, TEXT("%f"), AxisValue);
 		AddMovementInput(GetActorRightVector() * AxisValue);
 	}
+}
+
+void APlayerCharacter::IncreaseMovementSpeed() 
+{
+	PlayerCharacterMovement->MaxWalkSpeed = IncreasedSpeed * SpeedRate;
+}
+
+void APlayerCharacter::NormalizeMovementSpeed() 
+{
+	PlayerCharacterMovement->MaxWalkSpeed = NormalSpeed * SpeedRate;
+}
+
+void APlayerCharacter::DecreaseMovementSpeed()
+{
+	PlayerCharacterMovement->MaxWalkSpeed = DecrasedSpeed * SpeedRate;
 }
 
 void APlayerCharacter::LookUpRate(float AxisValue)
