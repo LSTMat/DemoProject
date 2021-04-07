@@ -56,7 +56,9 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void APlayerCharacter::MoveForeward(float AxisValue)
 {
 	if (AxisValue != 0.0f){
-		AddMovementInput(GetActorForwardVector() * AxisValue * 1000);
+		AddMovementInput(GetActorForwardVector() * AxisValue);
+		UE_LOG(LogTemp, Warning, TEXT("FWD"));
+		UE_LOG(LogTemp, Warning, TEXT("FWD %f"), AxisValue);
 	}
 }
 
@@ -64,6 +66,8 @@ void APlayerCharacter::MoveRight(float AxisValue)
 {
 	if (AxisValue != 0.0f){
 		AddMovementInput(GetActorRightVector() * AxisValue);
+		UE_LOG(LogTemp, Warning, TEXT("RIGHT"));
+		UE_LOG(LogTemp, Warning, TEXT("RIGHT %f"), AxisValue);
 	}
 }
 
